@@ -5,7 +5,7 @@ local preview = Forums:NewSection("Main")
 local preview1 = Forums:NewSection("Extra")
 
 local btn = preview:NewButton("This Button Will Update", function()
-    print("Button")
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/ProjectNova/loader.lua",true))()
 end)
 
 preview:Seperator()
