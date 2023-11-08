@@ -1,45 +1,53 @@
--local Luxtl = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Luxware-UI-Library/main/Source.lua"))()
+local Atlas = loadstring(game:HttpGet("https://siegehub.net/Atlas.lua"))()
 
-local Luxt = Luxtl.CreateWindow("GH | Gaming Hub", 6105620301)
+local UI = Atlas.new({
+    Name = "GH GamingHub"; -- script name (required)
+    ConfigFolder = "MyScript"; -- folder name to save configs to, set this to nil if you want to disable configs saving
+    Credit = "Made By Zinkz And Vinkz"; -- text to appear if player presses the "i" button on their UI (optional)
+    Color = Color3.fromRGB(255,0,0); -- theme color for UI (required)
+    Bind = "LeftControl"; -- keybind for toggling the UI, must be a valid KeyCode name
+    -- Atlas Loader:
+    UseLoader = true; -- whether to use Atlas Loader or not, if set to false than CheckKey and Discord are ignored
+    FullName = "My Script Hub"; -- works if UseLoader is set to true, can be same as Name argument, shown on loader frame
+    CheckKey = function(inputtedKey) -- works if UseLoader is set to true, where inputtedKey is the key inputted by the player
+        return inputtedKey=="YesIUseFree"
+    end;
+    Discord = "https://discord.gg/xu5dDS3Pb9"; -- works if UseLoader is set to true, will be copied to clipboard if player presses "Copy Invite" button
+})
 
-local mainTab = Luxt:Tab("Auto-Farm", 6087485864)
-local creditsTab = Luxt:Tab("Credits")
-local cf = creditsTab:Section("Main Credits")
-cf:Credit("Zinkz: Main Dev")
-local cf1 = creditsTab:Section("UI Credits")
-cf1:Credit("_____: Owner")
+local MyPage = UI:CreatePage("Main")
 
-local Examples = Luxt:Tab("Examples")
-local ff = Examples:Section("All Examples")
-ff:Label("Welcome Gaming Hub local Luxtl = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Luxware-UI-Library/main/Source.lua"))()
+local MSection = MyPage:CreateSection("Main Stuff")
 
-local Luxt = Luxtl.CreateWindow("Wisteria GUI", 6105620301)
+})
 
-local mainTab = Luxt:Tab("Auto-Farm", 6087485864)
-local teleportsTab = Luxt:Tab("Teleports")
-local autoQTab = Luxt:Tab("Auto-Quest")
-local combatTab = Luxt:Tab("Combat")
-local creditsTab = Luxt:Tab("Credits")
-local cf = creditsTab:Section("Main Credits")
-cf:Credit("Luxt: Main Coding")
-local cf1 = creditsTab:Section("UI Credits")
-cf1:Credit("xHeptc: UI Library")
-local cf2 = creditsTab:Section("Helping Credits")
-cf2:Credit("Salad: Helping")
+UI:Notify({
+  Title = "Welcome To GamingHub";
+  Content = "Fr.";
+})
 
-local Examples = Luxt:Tab("main")
-local ff = Examples:Section("All Examples")
-ff:Label("Welcome to Gaming Hub V1")
+local SSection = SPage:CreateSection("My Section")
 
-ff:Toggle("Toggle Me!", function(isToggled)
-   
-end)
+SSection:CreateSlider({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
+    Name = "Speed"; -- required: name of element
+    Flag = "Walkspeed"; -- required: unique flag name to use
+    Min = 0; -- required: slider minimum drag
+    Max = 100; -- required: slider maximum drag (Max>Min or else script will error)
+    AllowOutOfRange = true; -- optional: determines whether the player can enter values outside of range Min:Max when typing in the TextBox. If left nil, this is false
+    Digits = 2; -- optional: digits for rounding when dragging or entering values, default is 0 (whole numbers)
+    Default = 15; -- optional: default value for slider, will be used if config saving is disabled and there is no saved data, will be the Min value if left nil
+    Callback = function(newValue) -- optional: function that will be called whenever slider flag is changed
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = currentValue 
+    end;
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "Hi ?"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
 
-ff:Slider("WalkSpeed", 16, 503, function(currentValue)
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = currentValue 
-end)
-ff:Button("Auto Parryt", function()
-    script.Parent.Frame.ToggleFrame.Circle:TweenPosition(UDim2.new(0.2,0,0.5,0),Enum.EasingDirection.InOut,Enum.EasingStyle.Linear,0.09)
+MSection:CreateButton({
+    Name = "AutoParry"; -- required: name of element
+    Callback = function() -- required: function to be called when button is pressed
+        script.Parent.Frame.ToggleFrame.Circle:TweenPosition(UDim2.new(0.2,0,0.5,0),Enum.EasingDirection.InOut,Enum.EasingStyle.Linear,0.09)
 			script.Parent.Frame.ToggleFrame.BackgroundColor3 = Color3.fromRGB(22, 21, 22)
 			script.Parent.Parent.Text.Value = script.Parent.Parent.Text.Value.. "" ..script.Parent.Name 
 			onoff = false
@@ -85,4 +93,7 @@ local function C_88()
 		givePet(player)
 	end)
 end;
-end)
+    end
+})
+
+
